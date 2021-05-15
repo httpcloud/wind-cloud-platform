@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.fedorxe.wind.mybatis.config.MybatisPlusConfig
+com.windacc.wind.mybatis.config.MybatisPlusConfig

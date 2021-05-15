@@ -1,3 +1,3 @@
 spring:
   application:
-    name: wind-auth
+    name: wind-user
