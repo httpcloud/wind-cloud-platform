@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.fedorxe</groupId>
+        <artifactId>wind-cloud-platform</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>wind-framework</artifactId>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>公共框架模块</description>
+
+    <modules>
+        <module>wind-core-config</module>
+        <module>wind-core-tool</module>
+
+        <module>wind-starter-env</module>
+        <module>wind-starter-mybatis</module>
+
+        <module>wind-starter-redis</module>
+
+        <module>wind-common</module>
+    </modules>
+
+</project>

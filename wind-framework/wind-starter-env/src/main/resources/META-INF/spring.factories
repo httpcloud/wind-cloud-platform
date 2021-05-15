@@ -1,0 +1,2 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+com.fedorxe.wind.env.config.ProfileEnvironmentPostProcessor

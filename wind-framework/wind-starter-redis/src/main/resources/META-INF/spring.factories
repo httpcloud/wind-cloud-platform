@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.fedorxe.wind.redis.config.RedisAutoConfigure,\
+com.fedorxe.wind.redis.lock.RedissonDistributedLock,\
+com.fedorxe.wind.redis.config.RedisService
