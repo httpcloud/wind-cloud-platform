@@ -14,17 +14,18 @@
 
     <modules>
         <module>wind-core-config</module>
-        <module>wind-core-tool</module>
+        <module>wind-core-toolkit</module>
 
         <module>wind-starter-env</module>
         <module>wind-starter-mybatis</module>
+        <module>wind-starter-ribbon</module>
 
         <module>wind-starter-redis</module>
 
         <module>wind-common</module>
 
         <module>wind-starter-log</module>
-        <module>wind-starter-ribbon</module>
+
         <module>wind-starter-security</module>
         <module>wind-starter-sentinel</module>
         <module>wind-starter-swagger</module>

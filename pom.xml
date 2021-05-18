@@ -11,6 +11,7 @@
 
     <modules>
         <module>wind-framework</module>
+        <module>wind-service-api</module>
         <module>wind-system</module>
         <module>wind-assist</module>
     </modules>
@@ -32,7 +33,9 @@
         <redisson-spring-boot-starter.version>3.14.1</redisson-spring-boot-starter.version>
         <spring-social-security.version>1.1.6.RELEASE</spring-social-security.version>
         <jasypt-spring-boot-starter.version>1.14</jasypt-spring-boot-starter.version>
+        <spring-social-security.version>1.1.6.RELEASE</spring-social-security.version>
         <flowable.version>6.4.2</flowable.version>
+        <easy-rules.version>4.0.0</easy-rules.version>
 
         <p6spy.version>3.8.7</p6spy.version>
         <spring.social.version>1.1.6.RELEASE</spring.social.version>
@@ -43,6 +46,9 @@
         <commons-collections4.version>4.1</commons-collections4.version>
 
         <jsqlparser.jsqlparser.version>3.1</jsqlparser.jsqlparser.version>
+        <findbugs.jsr305.version>3.0.2</findbugs.jsr305.version>
+        <prometheus.simpleclient.version>0.8.1</prometheus.simpleclient.version>
+        <hdrhistogram.HdrHistogram.version>2.1.12</hdrhistogram.HdrHistogram.version>
 
         <!-- Maven Plugin Versions -->
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -128,11 +134,6 @@
                 <version>${jasypt-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-collections4</artifactId>
-                <version>${commons-collections4.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool-all.version}</version>
@@ -141,6 +142,27 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>transmittable-thread-local</artifactId>
                 <version>${transmittable-thread-local.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-security</artifactId>
+                <version>${spring-social-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-web</artifactId>
+                <version>${spring-social-security.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-rules-mvel</artifactId>
+                <version>${easy-rules.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-rules-spel</artifactId>
+                <version>${easy-rules.version}</version>
             </dependency>
 
             <dependency>
@@ -172,7 +194,7 @@
             </dependency>
             <dependency>
                 <groupId>com.windacc</groupId>
-                <artifactId>wind-core-tool</artifactId>
+                <artifactId>wind-core-toolkit</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -187,19 +209,77 @@
             </dependency>
             <dependency>
                 <groupId>com.windacc</groupId>
+                <artifactId>wind-starter-ribbon</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.windacc</groupId>
                 <artifactId>wind-starter-redis</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.windacc</groupId>
-                <artifactId>wind-common</artifactId>
+                <artifactId>wind-starter-swagger</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.windacc</groupId>
+                <artifactId>wind-starter-security</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.windacc</groupId>
+                <artifactId>wind-starter-log</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.windacc</groupId>
+                <artifactId>wind-starter-web</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.windacc</groupId>
+                <artifactId>wind-starter-sentinel</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.windacc</groupId>
+                <artifactId>wind-starter-test</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
+                <groupId>com.windacc</groupId>
+                <artifactId>wind-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.windacc</groupId>
+                <artifactId>wind-user-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--内置包更换-->
+            <dependency>
                 <groupId>com.github.jsqlparser</groupId>
                 <artifactId>jsqlparser</artifactId>
                 <version>${jsqlparser.jsqlparser.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${findbugs.jsr305.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.prometheus</groupId>
+                <artifactId>simpleclient</artifactId>
+                <version>${prometheus.simpleclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hdrhistogram</groupId>
+                <artifactId>HdrHistogram</artifactId>
+                <version>${hdrhistogram.HdrHistogram.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

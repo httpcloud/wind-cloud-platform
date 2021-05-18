@@ -21,6 +21,10 @@
             <groupId>com.windacc</groupId>
             <artifactId>wind-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.windacc</groupId>
+            <artifactId>wind-starter-swagger</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

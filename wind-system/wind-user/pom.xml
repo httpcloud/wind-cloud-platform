@@ -13,6 +13,15 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.windacc</groupId>
+            <artifactId>wind-user-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.windacc</groupId>
+            <artifactId>wind-starter-swagger</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -21,14 +30,5 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

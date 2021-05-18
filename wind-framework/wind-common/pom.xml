@@ -12,13 +12,19 @@
     <description>Demo project for Spring Boot</description>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.windacc</groupId>
+            <artifactId>wind-starter-web</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.windacc</groupId>
             <artifactId>wind-core-config</artifactId>
         </dependency>
         <dependency>
             <groupId>com.windacc</groupId>
-            <artifactId>wind-starter-env</artifactId>
+            <artifactId>wind-core-toolkit</artifactId>
         </dependency>
         <dependency>
             <groupId>com.windacc</groupId>
@@ -26,17 +32,25 @@
         </dependency>
         <dependency>
             <groupId>com.windacc</groupId>
+            <artifactId>wind-starter-env</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.windacc</groupId>
+            <artifactId>wind-starter-ribbon</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.windacc</groupId>
             <artifactId>wind-starter-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.windacc</groupId>
+            <artifactId>wind-starter-log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.windacc</groupId>
+            <artifactId>wind-starter-sentinel</artifactId>
+        </dependency>
 
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>

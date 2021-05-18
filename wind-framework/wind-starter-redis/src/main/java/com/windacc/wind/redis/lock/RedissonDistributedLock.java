@@ -1,9 +1,9 @@
 package com.windacc.wind.redis.lock;
 
-import com.windacc.wind.tool.constants.CommonConstant;
-import com.windacc.wind.tool.exception.LockException;
-import com.windacc.wind.tool.lock.DistributedLock;
-import com.windacc.wind.tool.lock.ZLock;
+import com.windacc.wind.toolkit.constants.CommonConstant;
+import com.windacc.wind.toolkit.exception.LockException;
+import com.windacc.wind.toolkit.lock.DistributedLock;
+import com.windacc.wind.toolkit.lock.ZLock;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -23,10 +23,6 @@ import java.util.concurrent.TimeUnit;
 public class RedissonDistributedLock implements DistributedLock {
     @Autowired
     private RedissonClient redisson;
-
-    public RedissonDistributedLock() {
-        log.info("启动 RedissonDistributedLock");
-    }
 
     private ZLock getLock(String key, boolean isFair) {
         RLock lock;

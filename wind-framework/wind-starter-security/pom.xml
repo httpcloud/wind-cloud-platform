@@ -13,10 +13,35 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>com.windacc</groupId>
+            <artifactId>wind-core-toolkit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.windacc</groupId>
+            <artifactId>wind-user-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.windacc</groupId>
+            <artifactId>wind-starter-mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.windacc</groupId>
+            <artifactId>wind-starter-redis</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
 </project>

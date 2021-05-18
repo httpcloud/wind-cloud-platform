@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.windacc.wind.web.config.PasswordEncoderConfig,\
+com.windacc.wind.web.config.RequestHeaderFilterConfiguration

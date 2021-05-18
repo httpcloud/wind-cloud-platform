@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.windacc</groupId>
-            <artifactId>wind-core-tool</artifactId>
+            <artifactId>wind-core-toolkit</artifactId>
         </dependency>
 
         <dependency>
@@ -30,11 +30,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
         </dependency>
 
         <dependency>

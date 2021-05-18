@@ -1,2 +1,35 @@
 server:
-  port: 20010
+  port: 9400
+
+spring:
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+    gateway:
+      routes:
+        - id: wind-auth
+          uri: lb://wind-auth
+          predicates:
+            - Path=/wind-auth/**
+          filters:
+            - PreserveHostHeader
+            - StripPrefix=1
+        - id: wind-user
+          uri: lb://wind-user
+          predicates:
+            - Path=/wind-user/**
+            - Weight=group3, 1
+          filters:
+            - StripPrefix=1
+
+## 关闭增强模式，gateway无法使用增强模式
+knife4j:
+  enable: false
+wind:
+  security:
+    ignore:
+      # 忽略认证的地址
+      httpUrls: >
+        /wind-auth/oauth/**,
+        /favicon.ico

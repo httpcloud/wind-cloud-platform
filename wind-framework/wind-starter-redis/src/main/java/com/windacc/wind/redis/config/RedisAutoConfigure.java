@@ -1,9 +1,8 @@
 package com.windacc.wind.redis.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.windacc.wind.redis.properties.CacheManagerProperties;
-import com.windacc.wind.tool.jackson.JacksonObjectMapper;
+import com.windacc.wind.toolkit.jackson.JacksonObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -45,15 +44,12 @@ public class RedisAutoConfigure {
     @Bean
     public RedisSerializer<Object> redisValueSerializer() {
         ObjectMapper om = new JacksonObjectMapper();
-        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        om.activateDefaultTyping(om.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
         return new GenericJackson2JsonRedisSerializer(om);
     }
 
-    /**
-     * RedisTemplate配置
-     * @param factory
-     */
     @Bean
+    @Primary
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory
             , RedisSerializer<String> redisKeySerializer, RedisSerializer<Object> redisValueSerializer) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
@@ -68,7 +64,7 @@ public class RedisAutoConfigure {
         return redisTemplate;
     }
 
-    @Bean(name = "cacheManager")
+    @Bean
     @Primary
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory
             , RedisSerializer<String> redisKeySerializer, RedisSerializer<Object> redisValueSerializer) {
@@ -85,9 +81,18 @@ public class RedisAutoConfigure {
         }
 
         return RedisCacheManager.builder(redisConnectionFactory)
-                .cacheDefaults(difConf)
-                .withInitialCacheConfigurations(redisCacheConfigurationMap)
-                .build();
+            .cacheDefaults(difConf)
+            .withInitialCacheConfigurations(redisCacheConfigurationMap)
+            .build();
+    }
+
+    private RedisCacheConfiguration getDefConf(
+            RedisSerializer<String> redisKeySerializer, RedisSerializer<Object> redisValueSerializer) {
+        return RedisCacheConfiguration.defaultCacheConfig()
+                .disableCachingNullValues()
+                .computePrefixWith(cacheName -> "cache".concat(":").concat(cacheName).concat(":"))
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisKeySerializer))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisValueSerializer));
     }
 
     @Bean
@@ -103,12 +108,5 @@ public class RedisAutoConfigure {
         };
     }
 
-    private RedisCacheConfiguration getDefConf(
-            RedisSerializer<String> redisKeySerializer, RedisSerializer<Object> redisValueSerializer) {
-        return RedisCacheConfiguration.defaultCacheConfig()
-                .disableCachingNullValues()
-                .computePrefixWith(cacheName -> "cache".concat(":").concat(cacheName).concat(":"))
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisKeySerializer))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisValueSerializer));
-    }
+
 }

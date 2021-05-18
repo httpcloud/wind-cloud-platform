@@ -2,6 +2,7 @@ package com.windacc.wind.auth.mapper;
 
 import com.windacc.wind.auth.entity.Client;
 import com.windacc.wind.mybatis.mapper.SuperMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.windacc.wind.mybatis.mapper.SuperMapper;
  * @author codeGen
  * @since 2021-05-15
  */
+@Mapper
 public interface ClientMapper extends SuperMapper<Client> {
 
 }

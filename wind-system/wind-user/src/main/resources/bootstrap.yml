@@ -1,3 +1,14 @@
 spring:
   application:
     name: wind-user
+  cloud:
+    nacos:
+      server-addr: localhost:18848
+      username: nacos
+      password: nacos
+      config:
+        namespace: 69d695db-cc88-4bed-a037-1982b7bf2b04
+        extension-configs[0]:
+          data-id: common.yaml
+      discovery:
+        namespace: ${spring.cloud.nacos.config.namespace}

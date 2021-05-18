@@ -1,2 +1,7 @@
 server:
   port: 20040
+wind:
+  swagger:
+    title: 代码中心
+    description: 代码中心接口文档
+    base-package: com.windacc.wind.code.controller
