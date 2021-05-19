@@ -16,7 +16,7 @@ public class WindGatewayApp {
 
     public static void main(String[] args) {
         SpringApplication.run(WindGatewayApp.class, args);
-        log.info("==============WindGatewayApp start====================");
+        log.info("WindGatewayApp 启动");
     }
 
 }

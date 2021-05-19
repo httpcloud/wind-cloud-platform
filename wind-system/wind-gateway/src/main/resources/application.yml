@@ -1,6 +1,5 @@
 server:
   port: 9400
-
 spring:
   cloud:
     loadbalancer:
@@ -19,10 +18,14 @@ spring:
           uri: lb://wind-user
           predicates:
             - Path=/wind-user/**
-            - Weight=group3, 1
           filters:
             - StripPrefix=1
-
+        - id: wind-code
+          uri: lb://wind-code
+          predicates:
+            - Path=/wind-code/**
+          filters:
+            - StripPrefix=1
 ## 关闭增强模式，gateway无法使用增强模式
 knife4j:
   enable: false

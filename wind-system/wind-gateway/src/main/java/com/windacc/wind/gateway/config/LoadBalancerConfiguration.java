@@ -44,7 +44,7 @@ public class LoadBalancerConfiguration {
     public LoadBalancerClientFilter loadBalancerClientFilter(LoadBalancerProperties properties) {
 
         RibbonLoadBalancerClient loadBalancerClient = new RibbonLoadBalancerClient(springClientFactory);
-        log.info("================开启自定义负载过滤器================");
+        log.info("开启gateway自定义负载过滤器");
         MyLoadBalancerClientFilter loadBalancerClientFilter = new MyLoadBalancerClientFilter(loadBalancerClient, properties);
         return loadBalancerClientFilter;
     }

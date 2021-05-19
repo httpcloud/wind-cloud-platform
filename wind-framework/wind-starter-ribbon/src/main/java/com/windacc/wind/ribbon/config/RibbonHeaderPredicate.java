@@ -21,7 +21,7 @@ public class RibbonHeaderPredicate {
     @ConditionalOnClass(NacosServer.class)
     @ConditionalOnMissingBean(DiscoveryEnabledRule.class)
     public IRule discoveryEnabledRule() {
-        log.info("=============注入负载引擎================");
+        log.info("注入负载引擎");
         return new DiscoveryEnabledRule();
     }
 

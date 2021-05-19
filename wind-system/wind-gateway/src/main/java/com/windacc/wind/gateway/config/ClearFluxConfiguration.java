@@ -20,7 +20,6 @@ public class ClearFluxConfiguration {
 
     @Bean
     public WebFilter webFilter() {
-        log.info("================开启请求头收集过滤器================");
         return new ClearDangerousHeaderFilter();
     }
 

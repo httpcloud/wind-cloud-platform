@@ -16,7 +16,7 @@ public class WindAuthApp {
 
     public static void main(String[] args) {
         SpringApplication.run(WindAuthApp.class, args);
-        log.info("==============WindAuthApp start====================");
+        log.info("WindAuthApp 启动");
     }
 
 }

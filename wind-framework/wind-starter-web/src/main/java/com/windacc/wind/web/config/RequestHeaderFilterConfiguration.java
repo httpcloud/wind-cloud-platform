@@ -21,7 +21,6 @@ public class RequestHeaderFilterConfiguration {
 
     @Bean
     public FilterRegistrationBean<OncePerRequestFilter> collectionHeaderFilter() {
-        log.info("================开启请求头收集过滤器================");
         FilterRegistrationBean<OncePerRequestFilter> filterRegistrationBean = new FilterRegistrationBean<>();
         RequestHeaderServletFilter headerFilter = new RequestHeaderServletFilter();
         filterRegistrationBean.setFilter(headerFilter);

@@ -6,6 +6,3 @@ wind:
     title: 认证中心
     description: 认证中心接口文档
     base-package: com.windacc.wind.auth.controller
-feign:
-  hystrix:
-    enabled: true

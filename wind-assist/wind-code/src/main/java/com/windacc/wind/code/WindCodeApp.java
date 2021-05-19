@@ -18,7 +18,7 @@ public class WindCodeApp {
 
     public static void main(String[] args) {
         SpringApplication.run(WindCodeApp.class, args);
-        log.info("==============WindCodeApp start====================");
+        log.info("WindCodeApp 启动");
     }
 
 }

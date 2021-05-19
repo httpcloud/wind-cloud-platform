@@ -1,7 +1,6 @@
 package com.windacc.wind.toolkit.context;
 
 import cn.hutool.core.map.CaseInsensitiveMap;
-import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,16 +36,11 @@ public class TransmitContextHolder {
 
     public static void setContext(Map<String, Object> tenant) {
         tenant.forEach(TransmitContextHolder::addKey);
-        log.info("");
     }
 
     public static void addKey(String key, Object value) {
         final Map<String, Object> map = getContextMap();
-        final Object oldStr = map.put(key, value);
-
-        if (ObjectUtil.isNotEmpty(oldStr)) {
-            log.info("全局上下文数据替换 key : {} old : {} new : {} ", key, oldStr, value);
-        }
+        map.put(key, value);
     }
 
     public static Object getKey(String key) {
@@ -56,7 +50,6 @@ public class TransmitContextHolder {
 
     public static void removeKey(String key) {
         final Object remove = getContextMap().remove(key);
-        log.debug("删除上下文key {}  oldValue {}", key, remove);
     }
 
     public static void remove() {

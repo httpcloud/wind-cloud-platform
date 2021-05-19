@@ -32,8 +32,8 @@ public class UserClient implements IUserClient {
     @GetMapping("/feign/users-anon/findByUsername")
     public LoginUser findByUsername(@RequestParam("username") String username) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String client = ClientContextHolder.getClient();
-        String loginUser = LoginUserContextHolder.getUser();
+        String client = ClientContextHolder.getClientId();
+        String loginUser = LoginUserContextHolder.getUserJson();
         String aabbb = LoginUserContextHolder.getUsername();
 
         //Enumeration<String> attributes = request.getAttributeNames();

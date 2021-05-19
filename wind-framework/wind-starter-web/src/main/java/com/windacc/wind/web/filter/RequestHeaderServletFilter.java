@@ -2,11 +2,13 @@ package com.windacc.wind.web.filter;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.URLUtil;
 import com.windacc.wind.toolkit.constants.FilterOrderConstant;
 import com.windacc.wind.toolkit.constants.HeadersConstant;
 import com.windacc.wind.toolkit.context.ClientContextHolder;
 import com.windacc.wind.toolkit.context.LoginUserContextHolder;
 import com.windacc.wind.toolkit.context.TransmitContextHolder;
+import com.windacc.wind.toolkit.entity.LoginClient;
 import com.windacc.wind.toolkit.entity.LoginUser;
 import com.windacc.wind.toolkit.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -36,8 +39,8 @@ public class RequestHeaderServletFilter extends OncePerRequestFilter implements 
      */
     private static final List<String> NEED_TRANSMIT_HEADERS = HeadersConstant.TRANSMIT_HEADERS;
 
-    private void beforeHandler(HttpServletRequest request) {
-        log.debug("进入请求头收集过滤器，收集可能需要的传递给下游的头");
+    private void beforeHandler(HttpServletRequest request) throws UnsupportedEncodingException {
+        log.debug("请求头汇聚");
         Map<String, Object> context1 = TransmitContextHolder.getContext();
         Enumeration<String> headerNames = request.getHeaderNames();
         Map<String, Object> map = new HashMap<>();
@@ -46,23 +49,35 @@ public class RequestHeaderServletFilter extends OncePerRequestFilter implements 
             //如果是需要的头 或者 是染色格式的头
             if (NEED_TRANSMIT_HEADERS.contains(headerKey)) {
                 String headerValue = request.getHeader(headerKey);
+                if (headerKey.equals(HeadersConstant.USER_JSON_HEADER)) {
+                    headerValue = URLUtil.decode(headerValue);
+                }
+                if (headerKey.equals(HeadersConstant.CLIENT_JSON_HEADER)) {
+                    headerValue = URLUtil.decode(headerValue);
+                }
+
                 if (StrUtil.isNotBlank(headerValue)) {
                     map.put(headerKey, headerValue);
                 }
             }
         }
-        log.info("收集到的请求头信息 {}", map);
+        log.info("收集到的请求头信息 {}", map.keySet().toString());
         if (CollectionUtil.isNotEmpty(map)) {
             //放入上下文中
             TransmitContextHolder.setContext(map);
         }
 
-        String user = LoginUserContextHolder.getUser();
+        String userJson = LoginUserContextHolder.getUserJson();
         String username = LoginUserContextHolder.getUsername();
-        String clientId = ClientContextHolder.getClient();
+        LoginUser loginUser = JsonUtil.toEntity(userJson, LoginUser.class);
+        LoginUserContextHolder.setEntity(loginUser);
+        LoginUserContextHolder.clear();
 
-        LoginUser loginUser = JsonUtil.toEntity(user, LoginUser.class);
-        log.info("user:");
+        String clientId = ClientContextHolder.getClientId();
+        String clientJson = ClientContextHolder.getClientJson();
+        LoginClient loginClient = JsonUtil.toEntity(clientJson, LoginClient.class);
+        ClientContextHolder.setEntity(loginClient);
+        ClientContextHolder.clear();
     }
 
     @Override

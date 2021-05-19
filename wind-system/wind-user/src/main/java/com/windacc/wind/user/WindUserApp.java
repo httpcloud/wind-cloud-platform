@@ -16,10 +16,8 @@ public class WindUserApp {
 
     public static void main(String[] args) {
         SpringApplication.run(WindUserApp.class, args);
-        //SpringApplication app = new SpringApplication(WindUserApp.class);
-        //app.setApplicationStartup(new BufferingApplicationStartup(1000));
 
-        log.info("==============WindUserApp start====================");
+        log.info("WindUserApp 启动");
     }
 
 }
