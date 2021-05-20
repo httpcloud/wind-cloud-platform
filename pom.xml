@@ -13,6 +13,7 @@
         <module>wind-framework</module>
         <module>wind-service-api</module>
         <module>wind-system</module>
+        <module>wind-business</module>
         <module>wind-assist</module>
     </modules>
 
@@ -29,12 +30,14 @@
         <swagger-annotations.version>1.5.22</swagger-annotations.version>
         <knife4j-spring-boot-starter.version>2.0.8</knife4j-spring-boot-starter.version>
         <mybatis-plus-boot-starter.version>3.3.1</mybatis-plus-boot-starter.version>
+        <mybatis.version>3.5.3</mybatis.version>
+        <mybatis-spring.version>2.0.3</mybatis-spring.version>
         <pagehelper-spring-boot-starter.version>1.2.13</pagehelper-spring-boot-starter.version>
         <redisson-spring-boot-starter.version>3.14.1</redisson-spring-boot-starter.version>
         <spring-social-security.version>1.1.6.RELEASE</spring-social-security.version>
         <jasypt-spring-boot-starter.version>1.14</jasypt-spring-boot-starter.version>
         <spring-social-security.version>1.1.6.RELEASE</spring-social-security.version>
-        <flowable.version>6.4.2</flowable.version>
+        <flowable.version>6.6.0</flowable.version>
         <easy-rules.version>4.0.0</easy-rules.version>
 
         <p6spy.version>3.8.7</p6spy.version>
@@ -118,6 +121,16 @@
                 <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper-spring-boot-starter.version}</version>
@@ -163,6 +176,36 @@
                 <groupId>org.jeasy</groupId>
                 <artifactId>easy-rules-spel</artifactId>
                 <version>${easy-rules.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-engine</artifactId>
+                <version>${flowable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter</artifactId>
+                <version>${flowable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-json-converter</artifactId>
+                <version>${flowable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-ui-modeler-rest</artifactId>
+                <version>${flowable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-ui-modeler-logic</artifactId>
+                <version>${flowable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-ui-modeler-conf</artifactId>
+                <version>${flowable.version}</version>
             </dependency>
 
             <dependency>
@@ -280,6 +323,11 @@
                 <groupId>org.hdrhistogram</groupId>
                 <artifactId>HdrHistogram</artifactId>
                 <version>${hdrhistogram.HdrHistogram.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

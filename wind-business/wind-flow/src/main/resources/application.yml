@@ -1,0 +1,10 @@
+server:
+  port: 20110
+flowable:
+  async-executor-activate: false
+  database-schema-update: false
+  check-process-definitions: false
+logging:
+  level:
+    org.flowable: debug
+
