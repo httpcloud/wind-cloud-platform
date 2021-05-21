@@ -5,6 +5,7 @@ import com.windacc.wind.flow.service.IFlowProcessService;
 import com.windacc.wind.flow.service.MyService;
 import com.windacc.wind.mybatis.entity.PageData;
 import com.windacc.wind.toolkit.entity.Result;
+import org.flowable.engine.IdentityService;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class ProcessController {
     private MyService myService;
     @Autowired
     private IFlowProcessService processService;
+    @Autowired
+    private IdentityService identityService;
 
     /**
      * 生产应该是上传文件并发布， 自行优化。
@@ -44,8 +47,15 @@ public class ProcessController {
         @RequestParam(name = "pageSize", required = false, defaultValue = "3") Integer pageSize) {
 
         PageData<FlowProcess> flowProcesses = processService.listDeployment(pageNum, pageSize);
+
+        identityService.createUserQuery();
+
         return Result.of(flowProcesses);
     }
+
+
+
+
 
     @PostMapping("/delete")
     public Result<?> depleteProcess(@RequestParam String deploymentId) {

@@ -1,4 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.windacc.wind.ribbon.config.GlobalFeignConfig,\
 com.windacc.wind.ribbon.config.RibbonConfiguration,\
-com.windacc.wind.ribbon.config.RequestServletConfiguration
+com.windacc.wind.ribbon.config.RequestServletConfiguration,\
+com.windacc.wind.ribbon.config.RibbonEagerLoadConfiguration
