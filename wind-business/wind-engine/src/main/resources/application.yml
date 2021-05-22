@@ -1,0 +1,9 @@
+server:
+  port: 20120
+logging:
+  level:
+    org.flowable: debug
+flowable:
+  async-executor-activate: false
+  database-schema-update: false
+

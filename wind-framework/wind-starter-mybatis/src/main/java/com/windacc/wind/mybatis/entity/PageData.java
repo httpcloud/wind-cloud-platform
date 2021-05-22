@@ -57,7 +57,7 @@ public class PageData<T> implements Serializable {
 
     public PageData(List<T> list) {
         this.records = list;
-        if(list instanceof Page){
+        if (list instanceof Page) {
             this.total = (int) ((Page<T>) list).getTotal();
         } else {
             this.total = list.size();
@@ -78,6 +78,18 @@ public class PageData<T> implements Serializable {
         }
     }
 
+    public PageData(List<T> list, int total, int pageNum, int pageSize) {
+        this.records = list;
+        this.total = total;
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+
+        this.size = list.size();
+        int cnt = total / pageSize;
+
+        this.pages = total > pageSize * cnt ? cnt + 1 : cnt;
+    }
+
     public PageData(IPage<T> page) {
         this.records = page.getRecords();
         this.pageNum = (int) page.getCurrent();
@@ -92,6 +104,10 @@ public class PageData<T> implements Serializable {
 
     public static <T> PageData<T> of(IPage<T> page) {
         return new PageData<>(page);
+    }
+
+    public static <T> PageData<T> of(List<T> list, int total, int pageNum, int pageSize) {
+        return new PageData<>(list, total, pageNum, pageSize);
     }
 
 }

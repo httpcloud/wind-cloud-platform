@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "wind.ribbon.filter.enabled",
+      "type": "java.lang.Boolean",
+      "description": "ribbon version load enabled, default false."
+    }
+  ]
+}

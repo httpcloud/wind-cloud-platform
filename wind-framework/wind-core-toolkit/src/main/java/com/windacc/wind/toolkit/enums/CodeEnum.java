@@ -22,43 +22,51 @@ public enum CodeEnum {
     /**
      * 系统异常
      */
-    FAILURE("8000", HttpStatus.OK, "系统异常", ""),
+    FAILURE("2000", HttpStatus.OK, "系统异常", ""),
     /**
      * 业务异常
      */
-    BUSINESS_ERROR("8001", HttpStatus.OK, "业务异常", ""),
+    BUSINESS_ERROR("2001", HttpStatus.OK, "业务异常", ""),
     /**
      * 服务繁忙请稍后重试
      */
-    UN_REACHABLE("8002", HttpStatus.OK, "服务繁忙请稍后重试", "服务繁忙请稍后重试"),
+    UN_REACHABLE("2002", HttpStatus.OK, "服务繁忙请稍后重试", "服务繁忙请稍后重试"),
     /**
      * 分布式锁异常
      */
-    UNLOCK("8003", HttpStatus.OK, "分布式锁异常", "分布式锁异常"),
+    UNLOCK("2003", HttpStatus.OK, "分布式锁异常", "分布式锁异常"),
     /**
      * 数据加解密异常
      */
-    CRYPTO_ERROR("8004", HttpStatus.OK, "数据加解密异常", "数据加解密异常"),
+    CRYPTO_ERROR("3001", HttpStatus.OK, "数据加解密异常", "数据加解密异常"),
     /**
      * 流量限制
      */
-    RATE_LIMIT("8005", HttpStatus.OK, "流量限制", "流量限制"),
+    RATE_LIMIT("3002", HttpStatus.OK, "流量限制", "流量限制"),
     /**
      * Excel处理异常
      */
-    EXCEL_ERROR("8006", HttpStatus.OK, "Excel处理异常", "Excel处理异常"),
+    EXCEL_ERROR("2004", HttpStatus.OK, "Excel处理异常", "Excel处理异常"),
     /**
      * 没有权限请求当前方法
      */
-    DATA_ACCESS("8007", HttpStatus.OK, "没有权限请求当前方法", "没有权限请求当前方法"),
+    DATA_ACCESS("3003", HttpStatus.OK, "没有权限请求当前方法", "没有权限请求当前方法"),
     /**
      * 没有权限请求当前方法
      */
-    SIGN_ERROR("8008", HttpStatus.OK, "接口验签失败!", "接口验签失败!"),
+    SIGN_ERROR("3004", HttpStatus.OK, "接口验签失败!", "接口验签失败!"),
     /**
      * 没有权限请求当前方法
      */
-    BAD_CLIENT_CREDENTIALS("8009", HttpStatus.OK, "客户端凭证错误!", "客户端凭证错误!"),
+    BAD_CLIENT_CREDENTIALS("3005", HttpStatus.OK, "客户端凭证错误!", "客户端凭证错误!"),
+    /**
+     * 没有权限请求当前方法
+     */
+    DEPLOY_ERROR("4001", HttpStatus.OK, "工作流部署失败!", "工作流部署失败!"),
+    /**
+     * 没有权限请求当前方法
+     */
+    PROCESS_ERROR("4002", HttpStatus.OK, "工作流执行失败!", "工作流执行失败!"),
 
 
     /**

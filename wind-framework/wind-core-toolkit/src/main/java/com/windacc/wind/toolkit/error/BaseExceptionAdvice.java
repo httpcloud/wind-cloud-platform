@@ -107,7 +107,7 @@ public class BaseExceptionAdvice {
 		return exceptionHandle(CodeEnum.INTERNAL_SERVER_ERROR, e);
 	}
 
-	private ResponseEntity<Result<?>> exceptionHandle(CodeEnum codeEnum, Exception e) {
+	protected ResponseEntity<Result<?>> exceptionHandle(CodeEnum codeEnum, Exception e) {
 
 		log.error("handle error:code={},msg={}.", codeEnum.getCode(), e.getMessage(), e);
 		Result<?> result = Result.failed(codeEnum.getCode(), e.getMessage());

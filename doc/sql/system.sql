@@ -28,10 +28,6 @@ CREATE TABLE `sys_user`
   COLLATE = utf8mb4_general_ci COMMENT = '用户信息表'
   ROW_FORMAT = Dynamic;
 
-#
-# Data for table "sys_user"
-#
-
 INSERT INTO `sys_user`
 VALUES (32, '0', '0', 'admin', '$2a$10$Wtw81uu43fGKw9lkOr1RAOTNWxQIZBsB3YDwc/5yDnr/yeG5x92EG', '管理员',
         '13106975707', 1, '8817276-2917263-22211', 0, '1', 1, '2020-11-17 16:56:59',
@@ -65,9 +61,9 @@ VALUES (1, '0', 'admin', '系统管理员', '', 0, 0, '2017-11-17 16:56:59', '20
        (2, '0', 'seller', '卖家', '', 0, 0, '2017-11-17 16:56:59', '2017-11-17 16:56:59'),
        (3, '0', 'user', '普通用户', '', 0, 0, '2017-11-17 16:56:59', '2017-11-17 16:56:59');
 
--- ----------------------------
+-- ------------------------------------
 -- Table structure for sys_user_role
--- ----------------------------
+-- ------------------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role`
 (
@@ -88,6 +84,9 @@ CREATE TABLE `sys_user_role`
 INSERT INTO `sys_user_role`
 VALUES (4278, '0', 32, 1, 0, '2020-11-23 14:13:09', '2020-12-08 13:20:42');
 
+-- ------------------------------------
+-- Table structure for sys_menu
+-- ------------------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`
 (
@@ -117,9 +116,9 @@ INSERT INTO `sys_menu`
 VALUES (1020202, 10202, '账号管理-详情', null, '/api-user/com/ymdx/baas/account/view', '4', 2, null, '账号管理-详情', 0,
         '2020-04-21 13:25:47', '2020-12-08 13:16:01');
 
--- ----------------------------
+-- ------------------------------------
 -- Table structure for sys_role_menu
--- ----------------------------
+-- ------------------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu`
 (
@@ -141,9 +140,9 @@ VALUES (4278, 1, 1020201, 0, '2020-11-23 14:13:56', '2020-11-23 14:14:05'),
        (4270, 1, 1020202, 0, '2020-11-23 14:13:56', '2020-11-23 14:14:05');
 
 
--- ----------------------------
+-- ------------------------------------
 -- Table structure for sys_client
--- ----------------------------
+-- ------------------------------------
 DROP TABLE IF EXISTS `sys_client`;
 CREATE TABLE `sys_client`
 (

@@ -1,8 +1,7 @@
-package com.windacc.wind.ribbon.config;
+package com.windacc.wind.ribbon.rule;
 
 import com.alibaba.cloud.nacos.ribbon.NacosServer;
 import com.netflix.loadbalancer.IRule;
-import com.windacc.wind.ribbon.rule.DiscoveryEnabledRule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

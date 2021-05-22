@@ -20,6 +20,12 @@ spring:
             - Path=/wind-user/**
           filters:
             - StripPrefix=1
+        - id: wind-flow
+          uri: lb://wind-flow
+          predicates:
+            - Path=/wind-flow/**
+          filters:
+            - StripPrefix=1
         - id: wind-code
           uri: lb://wind-code
           predicates:
