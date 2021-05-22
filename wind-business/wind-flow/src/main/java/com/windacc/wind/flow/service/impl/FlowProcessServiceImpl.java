@@ -1,7 +1,7 @@
 package com.windacc.wind.flow.service.impl;
 
-import com.windacc.wind.flow.constants.FlowableConstant;
-import com.windacc.wind.flow.entity.FlowProcess;
+import com.windacc.wind.flow.constants.FlowConstant;
+import com.windacc.wind.flow.entity.FlowDefinition;
 import com.windacc.wind.flow.service.IFlowProcessService;
 import com.windacc.wind.mybatis.entity.PageData;
 import com.windacc.wind.toolkit.exception.BusinessException;
@@ -32,9 +32,9 @@ public class FlowProcessServiceImpl implements IFlowProcessService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public FlowProcess createDeployment(String filename, String category, String name) {
+    public FlowDefinition createDeployment(String filename, String category, String name) {
 
-        String deployFilename = "processes/" + filename + FlowableConstant.BPMN_SUFFIX;
+        String deployFilename = "processes/" + filename + FlowConstant.BPMN_SUFFIX;
         Deployment deployment = repositoryService.createDeployment().addClasspathResource(deployFilename)
             .category(category).name(name).deploy();
 
@@ -49,7 +49,7 @@ public class FlowProcessServiceImpl implements IFlowProcessService {
         //    throw new DeployException("已存在相同流程，请不要重复发布");
         //}
 
-        return FlowProcess.of(processDefinition, deployment);
+        return FlowDefinition.of(processDefinition, deployment);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class FlowProcessServiceImpl implements IFlowProcessService {
     }
 
     @Override
-    public PageData<FlowProcess> listDeployment(Integer pageNum, Integer pageSize) {
+    public PageData<FlowDefinition> listDeployment(Integer pageNum, Integer pageSize) {
 
         if (pageNum < 1 || pageSize < 1) {
             throw new BusinessException("分页参数错误");
@@ -69,17 +69,17 @@ public class FlowProcessServiceImpl implements IFlowProcessService {
             .listPage( (pageNum - 1) * pageSize, pageSize);
         long total = repositoryService.createDeploymentQuery().count();
 
-        List<FlowProcess> flowProcesses = new ArrayList<>();
+        List<FlowDefinition> flowDefinitions = new ArrayList<>();
         deploymentList.forEach((deployment -> {
             String deploymentId = deployment.getId();
             ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
                 .deploymentId(deploymentId).singleResult();
-            FlowProcess flowProcess = FlowProcess.of(processDefinition, deployment);
-            flowProcesses.add(flowProcess);
+            FlowDefinition flowDefinition = FlowDefinition.of(processDefinition, deployment);
+            flowDefinitions.add(flowDefinition);
         }));
-        PageData<FlowProcess> flowProcessPageData = PageData.of(flowProcesses, (int) total, pageNum, pageSize);
+        PageData<FlowDefinition> flowProcessPageData = PageData.of(flowDefinitions, (int) total, pageNum, pageSize);
 
-        log.info("获取全部流程结束, 共{}条", flowProcesses.size());
+        log.info("获取全部流程结束, 共{}条", flowDefinitions.size());
         return flowProcessPageData;
     }
 

@@ -1,17 +1,21 @@
 package com.windacc.wind.flow.controller;
 
+import com.windacc.wind.flow.entity.FlowInstance;
+import com.windacc.wind.flow.entity.FlowTask;
 import com.windacc.wind.flow.service.IFlowHistoryService;
 import com.windacc.wind.flow.service.IFlowTaskService;
+import com.windacc.wind.mybatis.entity.PageData;
 import com.windacc.wind.toolkit.entity.Result;
 import com.windacc.wind.toolkit.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.engine.*;
-import org.flowable.engine.history.HistoricActivityInstance;
-import org.flowable.engine.history.HistoricProcessInstance;
+import org.flowable.engine.runtime.Execution;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.image.ProcessDiagramGenerator;
+import org.flowable.task.api.Task;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -45,49 +49,96 @@ public class TaskController {
     private RepositoryService repositoryService;
     @Resource
     private ProcessEngine processEngine;
+    @Resource
+    private TaskService taskService;
 
     @PostMapping("/start")
-    public Result<?> startProcessInstance(@RequestParam String processDefinitionKey, String businessKey) {
+    public Result<?> startProcessInstance(@RequestParam String processDefinitionId, String businessKey) {
 
-        ProcessInstance processInstance = flowTaskService.startProcessInstance(processDefinitionKey, businessKey);
-        return Result.of(processInstance.getId());
+        FlowInstance flowInstance = flowTaskService.startProcessInstance(processDefinitionId, businessKey);
+        return Result.of(flowInstance);
     }
 
-    @GetMapping("/list")
-    public Result<?> listTask() {
+    @GetMapping("/todoList")
+    public Result<?> taskTodoList() {
 
-        flowTaskService.listTask();
+        PageData<FlowTask> flowTaskPageData = flowTaskService.taskTodoList();
+        return Result.of(flowTaskPageData);
+    }
+
+    /**
+     * TODO 获取流程实例详情
+     */
+    @GetMapping("/getInstanceDetail")
+    public Result<?> taskDetail(@RequestParam String processInstanceId) {
+
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
+            .processInstanceId(processInstanceId).singleResult();
+        List<Execution> executionList = runtimeService.createExecutionQuery().processInstanceId(processInstanceId).list();
+        Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+        FlowInstance flowInstance = FlowInstance.of(processInstance);
+        FlowTask flowTask = FlowTask.of(task);
+
+
+        return Result.of(flowTask);
+    }
+
+    @PostMapping("/addComment")
+    public Result<?> addComment(@RequestParam String taskId, @RequestParam String processInstanceId,
+        String comment, MultipartFile attach) throws IOException {
+
+        flowTaskService.addComment(taskId, processInstanceId, comment, attach);
         return Result.of("ok");
     }
+
+    /**
+     * 获取下一个任务节点列表
+     */
+    @GetMapping("/nextActivity")
+    public Result<?> nextActivity(@RequestParam String taskId) {
+
+        flowTaskService.nextActivity(taskId);
+
+        return Result.of("ok");
+    }
+
+    /**
+     * TODO 完成任务
+     */
+    @PostMapping("/complete")
+    public Result<?> completeTask(String taskId) throws IOException {
+
+        flowTaskService.completeTask(taskId);
+        return Result.of("ok");
+    }
+
+
 
     @GetMapping("/view")
     public void diagramView(String processInstanceId, HttpServletResponse response) throws IOException {
 
-        String processDefinitionId;
-        if (flowHistoryService.isFinished(processInstanceId)) {
-            HistoricProcessInstance instance = historyService.createHistoricProcessInstanceQuery()
-                .processInstanceId(processInstanceId).singleResult();
-            processDefinitionId = instance.getProcessDefinitionId();
-        } else {
-            ProcessInstance instance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId)
-                .singleResult();
-            processDefinitionId = instance.getProcessDefinitionId();
-
+        ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        //流程走完的不显示图
+        if (pi == null) {
+            return;
         }
-        List<String> highLightedActivities = new ArrayList<>();
-        List<HistoricActivityInstance> highLightedActivityList = historyService.createHistoricActivityInstanceQuery()
-            .processInstanceId(processInstanceId).orderByHistoricActivityInstanceStartTime().asc().list();
-        for (HistoricActivityInstance activity : highLightedActivityList) {
-            String activityId = activity.getActivityId();
-            highLightedActivities.add(activityId);
-        }
+        Task task = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        String InstanceId = task.getProcessInstanceId();
+        List<Execution> executions = runtimeService.createExecutionQuery().processInstanceId(InstanceId).list();
+        List<String> activityIds = new ArrayList<>();
         List<String> flows = new ArrayList<>();
-        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
-        ProcessEngineConfiguration engConf = processEngine.getProcessEngineConfiguration();
+        for (Execution exe : executions) {
+            List<String> ids = runtimeService.getActiveActivityIds(exe.getId());
+            activityIds.addAll(ids);
+        }
 
-        ProcessDiagramGenerator diagramGenerator = engConf.getProcessDiagramGenerator();
-        InputStream in = diagramGenerator.generateDiagram(bpmnModel, "png", highLightedActivities, flows, engConf.getActivityFontName(),
-            engConf.getLabelFontName(), engConf.getAnnotationFontName(), engConf.getClassLoader(), 1.0, true);
+        //获取流程图
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(pi.getProcessDefinitionId());
+        ProcessEngineConfiguration engconf = processEngine.getProcessEngineConfiguration();
+        ProcessDiagramGenerator diagramGenerator = engconf.getProcessDiagramGenerator();
+        InputStream in = diagramGenerator
+            .generateDiagram(bpmnModel, "png", activityIds, flows, engconf.getActivityFontName(),
+                engconf.getLabelFontName(), engconf.getAnnotationFontName(), engconf.getClassLoader(), 1.0, true);
 
         try (OutputStream out = response.getOutputStream()) {
             byte[] buf = new byte[1024];

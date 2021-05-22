@@ -63,6 +63,10 @@ public enum CodeEnum {
      * 没有权限请求当前方法
      */
     DEPLOY_ERROR("4001", HttpStatus.OK, "工作流部署失败!", "工作流部署失败!"),
+    /**
+     * 没有权限请求当前方法
+     */
+    PROCESS_ERROR("4002", HttpStatus.OK, "工作流执行失败!", "工作流执行失败!"),
 
 
     /**

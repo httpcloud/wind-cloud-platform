@@ -16,11 +16,11 @@ import java.util.Date;
  * @date 2021/5/20
  */
 @Data
-public class FlowProcess implements Serializable {
+public class FlowDefinition implements Serializable {
 
     private static final long serialVersionUID = -6930186595659037923L;
-    private String id;
-    protected String name;
+    private String definitionId;
+    protected String definitionName;
     protected String key;
     protected int version;
     protected String category;
@@ -35,9 +35,9 @@ public class FlowProcess implements Serializable {
     protected String deploymentName;
 
 
-    public FlowProcess(ProcessDefinitionEntityImpl definition) {
-        this.id = definition.getId();
-        this.name = definition.getName();
+    public FlowDefinition(ProcessDefinitionEntityImpl definition) {
+        this.definitionId = definition.getId();
+        this.definitionName = definition.getName();
         this.key = definition.getKey();
         this.version = definition.getVersion();
         this.category = definition.getCategory();
@@ -47,9 +47,9 @@ public class FlowProcess implements Serializable {
         this.suspensionState = definition.getSuspensionState();
     }
 
-    public FlowProcess(ProcessDefinitionEntityImpl definition, DeploymentEntityImpl deploy) {
-        this.id = definition.getId();
-        this.name = definition.getName();
+    public FlowDefinition(ProcessDefinitionEntityImpl definition, DeploymentEntityImpl deploy) {
+        this.definitionId = definition.getId();
+        this.definitionName = definition.getName();
         this.key = definition.getKey();
         this.version = definition.getVersion();
         this.deploymentId = definition.getDeploymentId();
@@ -63,8 +63,8 @@ public class FlowProcess implements Serializable {
         this.deploymentName = deploy.getName();
     }
 
-    public static FlowProcess of(ProcessDefinition processDefinition, Deployment deployment) {
-        return new FlowProcess((ProcessDefinitionEntityImpl) processDefinition, (DeploymentEntityImpl) deployment);
+    public static FlowDefinition of(ProcessDefinition processDefinition, Deployment deployment) {
+        return new FlowDefinition((ProcessDefinitionEntityImpl) processDefinition, (DeploymentEntityImpl) deployment);
     }
 
 }

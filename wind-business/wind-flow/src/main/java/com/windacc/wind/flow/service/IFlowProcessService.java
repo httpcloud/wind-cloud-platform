@@ -1,6 +1,6 @@
 package com.windacc.wind.flow.service;
 
-import com.windacc.wind.flow.entity.FlowProcess;
+import com.windacc.wind.flow.entity.FlowDefinition;
 import com.windacc.wind.mybatis.entity.PageData;
 
 /**
@@ -11,9 +11,9 @@ import com.windacc.wind.mybatis.entity.PageData;
  */
 public interface IFlowProcessService {
 
-    FlowProcess createDeployment(String filename, String category, String name);
+    FlowDefinition createDeployment(String filename, String category, String name);
 
     void deleteDeployment(String deploymentId);
 
-    PageData<FlowProcess> listDeployment(Integer pageNum, Integer pageSize);
+    PageData<FlowDefinition> listDeployment(Integer pageNum, Integer pageSize);
 }

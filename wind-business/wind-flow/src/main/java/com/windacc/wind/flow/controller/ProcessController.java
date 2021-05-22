@@ -1,6 +1,6 @@
 package com.windacc.wind.flow.controller;
 
-import com.windacc.wind.flow.entity.FlowProcess;
+import com.windacc.wind.flow.entity.FlowDefinition;
 import com.windacc.wind.flow.service.IFlowProcessService;
 import com.windacc.wind.flow.service.MyService;
 import com.windacc.wind.mybatis.entity.PageData;
@@ -38,15 +38,15 @@ public class ProcessController {
     @PostMapping("/new")
     public Result<?> deployProcess(@RequestParam String filename, @RequestParam String category,
         @RequestParam String name) {
-        FlowProcess flowProcess = processService.createDeployment(filename, category, name);
-        return Result.of(flowProcess);
+        FlowDefinition flowDefinition = processService.createDeployment(filename, category, name);
+        return Result.of(flowDefinition);
     }
 
     @GetMapping("list")
     public Result<?> listProcess(@RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
         @RequestParam(name = "pageSize", required = false, defaultValue = "3") Integer pageSize) {
 
-        PageData<FlowProcess> flowProcesses = processService.listDeployment(pageNum, pageSize);
+        PageData<FlowDefinition> flowProcesses = processService.listDeployment(pageNum, pageSize);
 
         identityService.createUserQuery();
 

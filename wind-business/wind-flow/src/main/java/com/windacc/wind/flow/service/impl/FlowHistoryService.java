@@ -20,7 +20,8 @@ public class FlowHistoryService implements IFlowHistoryService {
 
     @Override
     public boolean isFinished(String processInstanceId) {
-        return historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).count() > 0;
+
+        return false;
     }
 
 }
