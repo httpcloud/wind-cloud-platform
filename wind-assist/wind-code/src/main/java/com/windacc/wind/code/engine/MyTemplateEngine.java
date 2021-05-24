@@ -36,8 +36,7 @@ public class MyTemplateEngine extends FreemarkerTemplateEngine {
 
     private Configuration configuration;
     private ByteArrayOutputStream outputStream;
-    private ZipOutputStream zipOutputStream;
-
+    //private ZipOutputStream zipOutputStream;
 
     @Override
     public FreemarkerTemplateEngine init(ConfigBuilder configBuilder) {
@@ -47,28 +46,28 @@ public class MyTemplateEngine extends FreemarkerTemplateEngine {
         configuration.setClassForTemplateLoading(FreemarkerTemplateEngine.class, StringPool.SLASH);
 
         outputStream = new ByteArrayOutputStream();
-        zipOutputStream = new ZipOutputStream(outputStream);
+        //zipOutputStream = new ZipOutputStream(outputStream);
 
         return this;
     }
 
-    @Override
-    public void writer(Map<String, Object> objectMap, String templatePath, String outputFile) throws Exception {
-        Template template = configuration.getTemplate(templatePath);
-        StringWriter stringWriter = new StringWriter();
-        template.process(objectMap, stringWriter);
-
-        zipOutputStream.putNextEntry(new ZipEntry(outputFile));
-        IOUtils.write(stringWriter.toString(), zipOutputStream, "UTF-8");
-        IOUtils.closeQuietly(stringWriter);
-        zipOutputStream.closeEntry();
-
-        log.info("模板:" + templatePath + ";  文件:" + outputFile);
-    }
+    //@Override
+    //public void writer(Map<String, Object> objectMap, String templatePath, String outputFile) throws Exception {
+    //    Template template = configuration.getTemplate(templatePath);
+    //    StringWriter stringWriter = new StringWriter();
+    //    template.process(objectMap, stringWriter);
+    //
+    //    zipOutputStream.putNextEntry(new ZipEntry(outputFile));
+    //    IOUtils.write(stringWriter.toString(), zipOutputStream, "UTF-8");
+    //    IOUtils.closeQuietly(stringWriter);
+    //    zipOutputStream.closeEntry();
+    //
+    //    log.info("模板:" + templatePath + ";  文件:" + outputFile);
+    //}
 
     @Override
     public AbstractTemplateEngine batchOutput() {
-        try {
+        try (ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream)) {
             List<TableInfo> tableInfoList = getConfigBuilder().getTableInfoList();
             for (TableInfo tableInfo : tableInfoList) {
                 Map<String, Object> objectMap = getObjectMap(tableInfo);
@@ -80,25 +79,39 @@ public class MyTemplateEngine extends FreemarkerTemplateEngine {
                     List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
                     if (CollectionUtils.isNotEmpty(focList)) {
                         for (FileOutConfig foc : focList) {
-                            writer(objectMap, foc.getTemplatePath(), foc.outputFile(tableInfo));
+                            //writer(objectMap, foc.getTemplatePath(), foc.outputFile(tableInfo));
+                            String templatePath = foc.getTemplatePath();
+                            String outputFile = foc.outputFile(tableInfo);
+                            Template template = configuration.getTemplate(templatePath);
+
+                            try (StringWriter stringWriter = new StringWriter()) {
+                                template.process(objectMap, stringWriter);
+
+                                zipOutputStream.putNextEntry(new ZipEntry(outputFile));
+                                IOUtils.write(stringWriter.toString(), zipOutputStream, "UTF-8");
+                                zipOutputStream.closeEntry();
+
+                                log.info("模板:" + templatePath + ";  文件:" + outputFile);
+                            }
+
                         }
                     }
                 }
             }
-            IOUtils.closeQuietly(zipOutputStream);
+            //IOUtils.closeQuietly(zipOutputStream);
+            zipOutputStream.close();
             byte[] data = outputStream.toByteArray();
 
             HttpServletResponse response = RequestUtil.getResponse();
             Objects.requireNonNull(response).reset();
-            response.setHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode("generator.zip","utf-8"));
+            response
+                .setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("generator.zip", "utf-8"));
             response.addHeader("Content-Length", "" + data.length);
             response.setContentType("application/octet-stream; charset=UTF-8");
 
             IOUtils.write(data, response.getOutputStream());
         } catch (Exception e) {
             logger.error("无法创建文件，请检查配置信息！", e);
-        } finally {
-            IOUtils.closeQuietly(zipOutputStream);
         }
         return this;
     }
