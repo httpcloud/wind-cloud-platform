@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author codeGen
- * @since 2021-05-15
+ * @since 2021-05-24
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -36,10 +36,6 @@ public class User extends Model<User> {
     @TableField("tenant_id")
     private String tenantId;
 
-    @ApiModelProperty(value = "机构id")
-    @TableField("org_id")
-    private String orgId;
-
     @ApiModelProperty(value = "账号")
     @TableField("username")
     private String username;
@@ -56,6 +52,14 @@ public class User extends Model<User> {
     @TableField("mobile")
     private String mobile;
 
+    @ApiModelProperty(value = "邮箱地址")
+    @TableField("email")
+    private String email;
+
+    @ApiModelProperty(value = "邮箱是否认证：0正常 1 未认证")
+    @TableField("email_status")
+    private String emailStatus;
+
     @ApiModelProperty(value = "性别 0 未知  1 男 2 女")
     @TableField("sex")
     private String sex;
@@ -64,7 +68,7 @@ public class User extends Model<User> {
     @TableField("open_id")
     private String openId;
 
-    @ApiModelProperty(value = "账户状态：0正常 1 禁用/关闭 2 冻结 3 注销 ")
+    @ApiModelProperty(value = "状态：0正常 1 禁用/关闭 2 冻结 3 注销 ")
     @TableField("status")
     private String status;
 
@@ -80,15 +84,25 @@ public class User extends Model<User> {
     @TableField("last_login_time")
     private LocalDateTime lastLoginTime;
 
+    @ApiModelProperty(value = "部门id")
+    @TableField("dept_id")
+    private Integer deptId;
+
+    @ApiModelProperty(value = "创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
+    @ApiModelProperty(value = "更新时间")
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-    @ApiModelProperty(value = "逻辑删除：0否，1是")
-    @TableField("del_flag")
-    private Boolean delFlag;
+    @ApiModelProperty(value = "生效时间")
+    @TableField("eff_time")
+    private LocalDateTime effTime;
+
+    @ApiModelProperty(value = "失效时间")
+    @TableField("exp_time")
+    private LocalDateTime expTime;
 
 
     @Override

@@ -2,7 +2,6 @@ package com.windacc.wind.flow.service.impl;
 
 import com.windacc.wind.api.feign.IUserClient;
 import lombok.extern.slf4j.Slf4j;
-import org.flowable.idm.api.UserQuery;
 import org.flowable.idm.engine.IdmEngineConfiguration;
 import org.flowable.idm.engine.impl.IdmIdentityServiceImpl;
 
@@ -22,11 +21,11 @@ public class WindIdmIdentityServiceImpl extends IdmIdentityServiceImpl {
         this.userClient = userClient;
     }
 
-    @Override
-    public UserQuery createUserQuery() {
-        log.info("用户查询--");
-        return new WindUserQueryImpl(userClient);
-    }
+    //@Override
+    //public UserQuery createUserQuery() {
+    //    log.info("用户查询--");
+    //    return new WindUserQueryImpl(userClient);
+    //}
 
     //@Override
     //public NativeUserQuery createNativeUserQuery() {

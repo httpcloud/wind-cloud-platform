@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.windacc.wind.user.mapper.RoleMenuMapper">
+<mapper namespace="com.windacc.wind.user.mapper.PostMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.windacc.wind.user.entity.RoleMenu">
+    <resultMap id="BaseResultMap" type="com.windacc.wind.user.entity.Post">
         <id column="id" property="id" />
         <result column="tenant_id" property="tenantId" />
-        <result column="role_id" property="roleId" />
-        <result column="menu_id" property="menuId" />
+        <result column="post_type" property="postType" />
+        <result column="post_code" property="postCode" />
+        <result column="post_name" property="postName" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
         <result column="eff_time" property="effTime" />
@@ -16,7 +17,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, tenant_id, role_id, menu_id, create_time, update_time, eff_time, exp_time
+        id, tenant_id, post_type, post_code, post_name, create_time, update_time, eff_time, exp_time
     </sql>
 
 </mapper>

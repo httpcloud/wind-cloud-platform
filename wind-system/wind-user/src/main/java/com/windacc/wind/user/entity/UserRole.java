@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author codeGen
- * @since 2021-05-15
+ * @since 2021-05-24
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -44,15 +44,21 @@ public class UserRole extends Model<UserRole> {
     @TableField("role_id")
     private Integer roleId;
 
-    @ApiModelProperty(value = "逻辑删除：0否，1是")
-    @TableField("del_flag")
-    private Boolean delFlag;
-
+    @ApiModelProperty(value = "创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
+    @ApiModelProperty(value = "更新时间")
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    @ApiModelProperty(value = "生效时间")
+    @TableField("eff_time")
+    private LocalDateTime effTime;
+
+    @ApiModelProperty(value = "失效时间")
+    @TableField("exp_time")
+    private LocalDateTime expTime;
 
 
     @Override

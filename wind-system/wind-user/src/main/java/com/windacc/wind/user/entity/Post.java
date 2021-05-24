@@ -1,4 +1,4 @@
-package com.windacc.wind.api.entity;
+package com.windacc.wind.user.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 系统菜单表，包括模块、菜单、接口、外链
+ * 岗位信息表
  * </p>
  *
  * @author codeGen
@@ -22,9 +22,9 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("sys_menu")
-@ApiModel(value="Menu对象", description="系统菜单表，包括模块、菜单、接口、外链")
-public class Menu extends Model<Menu> {
+@TableName("sys_post")
+@ApiModel(value="Post对象", description="岗位信息表")
+public class Post extends Model<Post> {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,37 +36,17 @@ public class Menu extends Model<Menu> {
     @TableField("tenant_id")
     private String tenantId;
 
-    @ApiModelProperty(value = "菜单父级id")
-    @TableField("menu_pid")
-    private Integer menuPid;
+    @ApiModelProperty(value = "岗位类型")
+    @TableField("post_type")
+    private String postType;
 
-    @ApiModelProperty(value = "菜单名称")
-    @TableField("menu_name")
-    private String menuName;
+    @ApiModelProperty(value = "岗位编码")
+    @TableField("post_code")
+    private String postCode;
 
-    @ApiModelProperty(value = "请求方法，多个方法用逗号隔开")
-    @TableField("menu_method")
-    private String menuMethod;
-
-    @ApiModelProperty(value = "菜单路径/接口路径")
-    @TableField("menu_path")
-    private String menuPath;
-
-    @ApiModelProperty(value = "菜单类型：(1:模块；2:菜单；3:外链 ; 4.组件)")
-    @TableField("menu_type")
-    private String menuType;
-
-    @ApiModelProperty(value = "排序字段")
-    @TableField("menu_order")
-    private Integer menuOrder;
-
-    @ApiModelProperty(value = "图标 url")
-    @TableField("menu_icon")
-    private String menuIcon;
-
-    @ApiModelProperty(value = "关键字")
-    @TableField("keyword")
-    private String keyword;
+    @ApiModelProperty(value = "岗位名称")
+    @TableField("post_name")
+    private String postName;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)

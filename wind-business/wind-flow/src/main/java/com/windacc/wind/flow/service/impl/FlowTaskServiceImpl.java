@@ -9,6 +9,10 @@ import com.windacc.wind.flow.service.IFlowTaskService;
 import com.windacc.wind.mybatis.entity.PageData;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.bpmn.model.*;
+import org.flowable.common.engine.impl.de.odysseus.el.ExpressionFactoryImpl;
+import org.flowable.common.engine.impl.de.odysseus.el.util.SimpleContext;
+import org.flowable.common.engine.impl.javax.el.ExpressionFactory;
+import org.flowable.common.engine.impl.javax.el.ValueExpression;
 import org.flowable.engine.*;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.runtime.Execution;
@@ -16,6 +20,8 @@ import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.idm.api.Group;
 import org.flowable.idm.api.User;
 import org.flowable.task.api.Task;
+import org.flowable.variable.api.history.HistoricVariableInstance;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Description desc   </p>
@@ -130,6 +137,7 @@ public class FlowTaskServiceImpl implements IFlowTaskService {
         identityService.createMembership("user2","management");
 
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+
         Execution execution = runtimeService.createExecutionQuery().executionId(task.getExecutionId()).singleResult();
         String currActivity = execution.getActivityId();
         BpmnModel bpmnModel = repositoryService.getBpmnModel(task.getProcessDefinitionId());
@@ -142,7 +150,16 @@ public class FlowTaskServiceImpl implements IFlowTaskService {
             if (targetFlow instanceof UserTask) {
                 UserTask userTask = (UserTask) targetFlow;
                 List<String> groups = userTask.getCandidateGroups();
-                List<User> user = identityService.createUserQuery().memberOfGroups(groups).list();
+                List<String> user3 = userTask.getCandidateUsers();
+                String group33 = userTask.getBusinessCalendarName();
+                Map<String, List<ExtensionElement>> ext = userTask.getExtensionElements();
+
+                List<User> user = identityService.createUserQuery()
+                    .memberOfGroups(groups)
+                    .userDisplayName("aa")
+                    .userFirstName("first")
+                    .userId("userid")
+                    .list();
 
                 System.out.println("下一节点: id=" + targetFlow.getId() + ",name=" + targetFlow.getName());
             }
@@ -175,7 +192,7 @@ public class FlowTaskServiceImpl implements IFlowTaskService {
         //    List<Pool> pools = bpmnModel.getPools();
         //List<Process> pro = bpmnModel.getProcesses();
 
-        throw new ProcessException("无法识别用户，请重新登录2");
+        //throw new ProcessException("无法识别用户，请重新登录2");
     }
 
     @Override
@@ -234,6 +251,8 @@ public class FlowTaskServiceImpl implements IFlowTaskService {
 
     private List<FlowTask> buildTaskList(List<Task> taskList, String status) {
 
+
+
         List<FlowTask> flowTasks = new ArrayList<>();
         taskList.forEach(task -> {
             FlowTask flowTask = FlowTask.of(task);
@@ -241,6 +260,20 @@ public class FlowTaskServiceImpl implements IFlowTaskService {
             flowTasks.add(flowTask);
         });
         return flowTasks;
+    }
+
+    public Object getValue(List<HistoricVariableInstance> hvis, String exp, Class<?> clazz) {
+        ExpressionFactory factory = new ExpressionFactoryImpl();
+        SimpleContext context = new SimpleContext();
+        for (HistoricVariableInstance entry : hvis) {
+            context.setVariable(entry.getVariableName(), factory.createValueExpression(entry.getValue(), Object.class));
+        }
+        ValueExpression e = factory.createValueExpression(context, exp, clazz);
+        return e.getValue(context);
+    }
+
+    public String getValue(List<HistoricVariableInstance> hvis, String exp) {
+        return (String) getValue(hvis, exp, String.class);
     }
 
 }

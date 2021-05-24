@@ -1,19 +1,22 @@
-package com.windacc.wind.api.entity;
+package com.windacc.wind.user.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 /**
  * <p>
- * 角色信息表
+ * 用户组信息表
  * </p>
  *
  * @author codeGen
@@ -22,9 +25,9 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("sys_role")
-@ApiModel(value="Role对象", description="角色信息表")
-public class Role extends Model<Role> {
+@TableName("sys_group")
+@ApiModel(value="Group对象", description="用户组信息表")
+public class Group extends Model<Group> {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,17 +39,17 @@ public class Role extends Model<Role> {
     @TableField("tenant_id")
     private String tenantId;
 
-    @ApiModelProperty(value = "角色id")
-    @TableField("role_code")
-    private String roleCode;
+    @ApiModelProperty(value = "用户组类型")
+    @TableField("group_category")
+    private Integer groupCategory;
 
-    @ApiModelProperty(value = "角色名称")
-    @TableField("role_name")
-    private String roleName;
+    @ApiModelProperty(value = "用户组名称")
+    @TableField("group_name")
+    private String groupName;
 
-    @ApiModelProperty(value = "角色描述")
-    @TableField("role_desc")
-    private String roleDesc;
+    @ApiModelProperty(value = "备注")
+    @TableField("remark")
+    private String remark;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)

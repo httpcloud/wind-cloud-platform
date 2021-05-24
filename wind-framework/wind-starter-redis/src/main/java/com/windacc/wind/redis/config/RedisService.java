@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * <p>Description desc   </p>
  *
  * @author windacc
- * @date 2021/5/15 10:30
+ * @date 2021/5/15
  */
 @Slf4j
 public class RedisService {

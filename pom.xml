@@ -40,7 +40,6 @@
         <flowable.version>6.6.0</flowable.version>
         <easy-rules.version>4.0.0</easy-rules.version>
 
-        <p6spy.version>3.8.7</p6spy.version>
         <spring.social.version>1.1.6.RELEASE</spring.social.version>
         <hutool-all.version>5.6.5</hutool-all.version>
         <transmittable-thread-local.version>2.12.1</transmittable-thread-local.version>
@@ -95,11 +94,6 @@
                 <version>${knife4j-spring-boot-starter.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>p6spy</groupId>
-                <artifactId>p6spy</artifactId>
-                <version>${p6spy.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>

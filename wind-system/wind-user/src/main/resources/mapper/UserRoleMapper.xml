@@ -8,14 +8,15 @@
         <result column="tenant_id" property="tenantId" />
         <result column="user_id" property="userId" />
         <result column="role_id" property="roleId" />
-        <result column="del_flag" property="delFlag" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
+        <result column="eff_time" property="effTime" />
+        <result column="exp_time" property="expTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, tenant_id, user_id, role_id, del_flag, create_time, update_time
+        id, tenant_id, user_id, role_id, create_time, update_time, eff_time, exp_time
     </sql>
 
 </mapper>

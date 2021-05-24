@@ -17,21 +17,13 @@ public class DateMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        Object createTime = getFieldValByName(CREATE_TIME, metaObject);
-        Object updateTime = getFieldValByName(UPDATE_TIME, metaObject);
-        if (createTime == null || updateTime == null) {
-            LocalDateTime now = LocalDateTime.now();
-            if (createTime == null) {
-                setFieldValByName(CREATE_TIME, now, metaObject);
-            }
-            if (updateTime == null) {
-                setFieldValByName(UPDATE_TIME, now, metaObject);
-            }
-        }
+        LocalDateTime now = LocalDateTime.now();
+        strictInsertFill(metaObject, CREATE_TIME, LocalDateTime.class, now);
+        strictInsertFill(metaObject, UPDATE_TIME, LocalDateTime.class, now);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        setFieldValByName(UPDATE_TIME, LocalDateTime.now(), metaObject);
+        strictUpdateFill(metaObject, UPDATE_TIME, LocalDateTime.class, LocalDateTime.now());
     }
 }

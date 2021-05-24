@@ -46,6 +46,7 @@ public class JacksonObjectMapper extends ObjectMapper {
         super.configure(MapperFeature.USE_GETTERS_AS_SETTERS, false);
         super.configure(MapperFeature.USE_STD_BEAN_NAMING, true);
         super.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+        super.configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
         super.registerModule(getSerializerModule());
         super.findAndRegisterModules();
     }

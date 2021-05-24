@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author codeGen
- * @since 2021-05-15
+ * @since 2021-05-23
  */
 @Mapper
 public interface RoleMenuMapper extends SuperMapper<RoleMenu> {

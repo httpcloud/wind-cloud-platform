@@ -12,6 +12,9 @@
     <userTask id="task1" name="科室审核" flowable:assignee="${audit1}">
       <extensionElements>
         <modeler:initiator-can-complete xmlns:modeler="http://flowable.org/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+        <flowable:value>Testing111</flowable:value>
+        <flowable:value>Testing222</flowable:value>
+        <flowable:group>aaa</flowable:group>
       </extensionElements>
     </userTask>
     <sequenceFlow id="sid-019F43EA-602B-499D-A098-FB4267A45378" sourceRef="task0" targetRef="task1"/>

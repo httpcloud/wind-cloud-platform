@@ -1,19 +1,22 @@
-package com.windacc.wind.api.entity;
+package com.windacc.wind.user.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 /**
  * <p>
- * 角色信息表
+ * 部门信息表
  * </p>
  *
  * @author codeGen
@@ -22,9 +25,9 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("sys_role")
-@ApiModel(value="Role对象", description="角色信息表")
-public class Role extends Model<Role> {
+@TableName("sys_department")
+@ApiModel(value="Department对象", description="部门信息表")
+public class Department extends Model<Department> {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,17 +39,25 @@ public class Role extends Model<Role> {
     @TableField("tenant_id")
     private String tenantId;
 
-    @ApiModelProperty(value = "角色id")
-    @TableField("role_code")
-    private String roleCode;
+    @ApiModelProperty(value = "上级部门id")
+    @TableField("parent_id")
+    private Integer parentId;
 
-    @ApiModelProperty(value = "角色名称")
-    @TableField("role_name")
-    private String roleName;
+    @ApiModelProperty(value = "部门类型")
+    @TableField("dept_category")
+    private Integer deptCategory;
 
-    @ApiModelProperty(value = "角色描述")
-    @TableField("role_desc")
-    private String roleDesc;
+    @ApiModelProperty(value = "部门名称")
+    @TableField("dept_name")
+    private String deptName;
+
+    @ApiModelProperty(value = "部门全称")
+    @TableField("full_name")
+    private String fullName;
+
+    @ApiModelProperty(value = "备注")
+    @TableField("remark")
+    private String remark;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)

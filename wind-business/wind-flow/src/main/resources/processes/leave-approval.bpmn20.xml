@@ -7,6 +7,11 @@
       <extensionElements>
         <modeler:activiti-idm-initiator xmlns:modeler="http://flowable.org/modeler"><![CDATA[true]]></modeler:activiti-idm-initiator>
       </extensionElements>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>accountancy</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
     <sequenceFlow id="sid-7FB766EA-1063-4FAB-9988-8CBBD8FC7B05" sourceRef="startEvent1" targetRef="task0"/>
     <userTask id="task1" name="科室审核" flowable:assignee="${auditUser}">
